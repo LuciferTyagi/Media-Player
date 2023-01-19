@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MediaPlayer</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://kit.fontawesome.com/78849e8de7.js" crossorigin="anonymous"></script>
+</head>
+<body>
+<div class="container">
+    <div class="music-player">
+       <nav>
+        <div class="circle">
+            <i class="fa-solid fa-angle-left"></i>
+        </div>
+        <div class="circle">
+            <i class="fa-solid fa-bars"></i>
+        </div>
+       </nav>
+       <img src="image2.jpeg" class="song-img">
+       <h1>Moral of the story</h1>
+       <p>Ashe</p>
+       <audio  id="song">
+        <source src="Ashe.mp3" type="audio/mpeg">
+       </audio>
+       <input type="range" value="0" id="bar">
+
+       <div class="controls">
+        <div>
+            <i class="fa-solid fa-backward"></i>
+        </div>
+        <div onclick="playPause()">
+            <i class="fa-solid fa-play" id="ctrlicon"></i>
+        </div>
+        <div>
+            <i class="fa-solid fa-forward"></i>
+        </div>
+       </div>
+    </div>
+</div>
+<script>
+    let bar = document.getElementById("bar");
+    let song = document.getElementById("song");
+    let ctrlicon = document.getElementById("ctrlicon");
+    song.onloadedmetadata=function(){
+        bar.max = song.duration;
+        bar.value = song.currentTime;
+    }
+    function playPause(){
+        if(ctrlicon.classList.contains("fa-pause")){
+            song.pause();
+            ctrlicon.classList.remove("fa-pause");
+            ctrlicon.classList.add("fa-play");
+        }
+        else{
+            song.play();
+            ctrlicon.classList.add("fa-pause");
+            ctrlicon.classList.remove("fa-play");
+        }
+    }
+  if(song.play()){
+    setInterval(()=>{
+        bar.value= song.currentTime;
+    },500);
+  }
+  bar.onchange = function(){
+    song.play();
+    song.currentTime = bar.value;
+    ctrlicon.classList.add("fa-pause");
+      ctrlicon.classList.remove("fa-play");
+  }
+
+
+</script>
+</body>
+</html>
